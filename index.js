@@ -1,5 +1,6 @@
 const redux = require("redux");
 const createStore = redux.createStore;
+const bindActionCreators = redux.bindActionCreators;
 
 /** comment ACTIONS
  * The only way your application can interact with store
@@ -69,9 +70,15 @@ const unsubscribe = store.subscribe(() =>
   console.log(`Update state`, store.getState())
 );
 
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(restockCake(3));
+// store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(restockCake(3));
+
+const actions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
+actions.orderCake();
+actions.orderCake();
+actions.orderCake();
+actions.restockCake(3);
 
 unsubscribe();
