@@ -51,11 +51,12 @@ const reducer = (state = initialState, action) => {
 const store = createStore(reducer);
 console.log(`Initial State`, store.getState());
 
-store.subscribe(() => console.log(`Update state`, store.getState()));
+const unsubscribe = store.subscribe(() =>
+  console.log(`Update state`, store.getState())
+);
 
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 
-// ReferenceError: unsubscribe is not defined
-// unsubscribe()
+unsubscribe();
