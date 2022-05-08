@@ -75,8 +75,9 @@ const cakeReducer = (state = initialCakeState, action) => {
         numOfCakes: state.numOfCakes + action.payload,
       };
 
-    default:
+    default: {
       return state;
+    }
   }
 };
 
@@ -94,8 +95,9 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
         numOfIcecreams: state.numOfIcecreams + action.payload,
       };
 
-    default:
+    default: {
       return state;
+    }
   }
 };
 
