@@ -47,12 +47,20 @@ function restockIcecream(qty = 1) {
  * Function that accepts state and action as arguments, and return the next state of the application
  * (previousState, action) => newState
  */
-const initialState = {
+// const initialState = {
+//   numOfCakes: 10,
+//   numOfIcecreams: 20,
+// };
+
+const initialCakeState = {
   numOfCakes: 10,
-  numOfIcecream: 20,
 };
 
-const reducer = (state = initialState, action) => {
+const initialIceCreamState = {
+  numOfIcecreams: 20,
+};
+
+const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case CAKE_ORDERED:
       return {
@@ -66,16 +74,23 @@ const reducer = (state = initialState, action) => {
         numOfCakes: state.numOfCakes + action.payload,
       };
 
+    default:
+      return state;
+  }
+};
+
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+  switch (action.type) {
     case ICECREAM_ORDERED:
       return {
         ...state,
-        numOfIcecream: state.numOfIcecream - action.payload,
+        numOfIcecreams: state.numOfIcecreams - action.payload,
       };
 
     case ICECREAM_RESTOCKED:
       return {
         ...state,
-        numOfIcecream: state.numOfIcecream + action.payload,
+        numOfIcecreams: state.numOfIcecreams + action.payload,
       };
 
     default:
