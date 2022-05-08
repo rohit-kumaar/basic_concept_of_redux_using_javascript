@@ -1,6 +1,7 @@
 const redux = require("redux");
 const createStore = redux.createStore;
 const bindActionCreators = redux.bindActionCreators;
+const combineReducers = redux.combineReducers;
 
 /** comment ACTIONS
  * The only way your application can interact with store
@@ -107,7 +108,13 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
  * Registers listeners via subscribe(listener)
  * Handles registering of listeners via the function returned by subscribe(listener)
  */
-const store = createStore(reducer);
+
+const root = combineReducers({
+  cake: cakeReducer,
+  iceCream: iceCreamReducer,
+});
+
+const store = createStore(root);
 console.log(`Initial State`, store.getState());
 
 const unsubscribe = store.subscribe(() =>
