@@ -2,6 +2,15 @@ const redux = require("redux");
 const createStore = redux.createStore;
 const bindActionCreators = redux.bindActionCreators;
 const combineReducers = redux.combineReducers;
+/** comment MiddleWare
+ * Is the suggested way to extend Reducer with custom functionality
+ * Provides a third-party extension point between dispatching an action, and the moment it reaches the reducer
+ * Use middleware for logging, crash reporting, performing asynchronous tasks etc
+ */
+const applyMiddleware = redux.applyMiddleware;
+
+const reduxLogger = require("redux-logger");
+const logger = reduxLogger.createLogger();
 
 /** comment ACTIONS
  * The only way your application can interact with store
@@ -111,17 +120,17 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
  * Handles registering of listeners via the function returned by subscribe(listener)
  */
 
-const root = combineReducers({
+const rootReducer = combineReducers({
   cake: cakeReducer,
   iceCream: iceCreamReducer,
 });
 
-const store = createStore(root);
+const store = createStore(rootReducer, applyMiddleware(logger));
 console.log(`Initial State`, store.getState());
 
-const unsubscribe = store.subscribe(() =>
-  console.log(`Update state`, store.getState())
-);
+const unsubscribe = store.subscribe(() => {
+  // console.log(`Update state`, store.getState());
+});
 
 // store.dispatch(orderCake());
 // store.dispatch(orderCake());
